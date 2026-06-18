@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import ThemeToggle from "./components/ThemeToggle";
 
 type Todo = {
   id: string;
@@ -60,7 +61,10 @@ export default function Home() {
 
   return (
     <main className="container">
-      <h1>📝 Todo</h1>
+      <header className="app-header">
+        <h1>📝 Todo</h1>
+        <ThemeToggle />
+      </header>
 
       <form className="add-form" onSubmit={addTodo}>
         <input
