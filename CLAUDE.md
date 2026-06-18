@@ -40,6 +40,7 @@ app/
 lib/feedback.ts           # read/write helper for data/feedback.json
 data/feedback.json        # stored feedback — gitignored, created on first POST
 .github/workflows/
+  ci.yml                   # build the app; upload .next as a GitHub artifact
   release-draft.yml        # version bump + changelog + draft GitHub release
   commit-lint.yml          # enforces Conventional Commits on PRs/main
 commitlint.config.js       # commit-lint rules
@@ -98,6 +99,13 @@ feat!: drop support for the legacy feedback schema
 - Client components need the `"use client"` directive (todo page, widget).
 - The feedback API must stay on the Node.js runtime (`export const runtime = "nodejs"`)
   because it writes to the filesystem.
+
+## CI
+
+[.github/workflows/ci.yml](.github/workflows/ci.yml) runs on pushes to `main`,
+on pull requests, and manually. It installs deps with `npm ci`, lints, builds,
+and uploads the production build output (`.next`, minus `.next/cache`) as a
+GitHub artifact named `next-build-<sha>` (retained 7 days).
 
 ## Releases
 
