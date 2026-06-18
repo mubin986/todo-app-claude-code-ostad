@@ -1,0 +1,56 @@
+name: Release Draft
+
+# Runs on every push to main. Reads the Conventional Commits since the last
+# tag, bumps the version in package.json, regenerates CHANGELOG.md, tags the
+# release, and opens a *draft* GitHub Release for you to review and publish.
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: {}
+
+# Avoid overlapping release runs racing on the same tag/commit.
+concurrency:
+  group: release-draft
+  cancel-in-progress: false
+
+# Required so the action can push the changelog commit + tag and create the release.
+permissions:
+  contents: write
+
+jobs:
+  release-draft:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # Full history is required to detect commits since the last tag.
+          fetch-depth: 0
+
+      - name: Conventional Changelog
+        id: changelog
+        uses: TriPSs/conventional-changelog-action@v5
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          # conventionalcommits preset gives grouped sections (Features, Bug Fixes, …).
+          preset: conventionalcommits
+          tag-prefix: v
+          output-file: CHANGELOG.md
+          version-file: ./package.json
+          # [skip ci] keeps the changelog commit from re-triggering this workflow.
+          git-message: "chore(release): {version} [skip ci]"
+          git-user-name: github-actions[bot]
+          git-user-email: github-actions[bot]@users.noreply.github.com
+
+      - name: Create draft release
+        # Only when the changelog step actually produced a new version.
+        if: ${{ steps.changelog.outputs.skipped == 'false' }}
+        uses: softprops/action-gh-release@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag_name: ${{ steps.changelog.outputs.tag }}
+          name: ${{ steps.changelog.outputs.tag }}
+          body: ${{ steps.changelog.outputs.clean_changelog }}
+          draft: true
+          prerelease: false
