@@ -1,3 +1,10 @@
+## [0.2.2](https://github.com/mubin986/claude-code-webinar/compare/v0.2.1...v0.2.2) (2026-06-18)
+
+
+### Bug Fixes
+
+* remove draft ([1aeaefe](https://github.com/mubin986/claude-code-webinar/commit/1aeaefe0ae91043a748e43083deca6e92a648750))
+
 ## [0.2.1](https://github.com/mubin986/claude-code-webinar/compare/v0.2.0...v0.2.1) (2026-06-18)
 
 
