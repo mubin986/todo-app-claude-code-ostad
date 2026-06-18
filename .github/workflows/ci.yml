@@ -44,6 +44,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: next-build-${{ github.sha }}
+          # .next is a dotfile dir; upload-artifact@v4 excludes hidden files by
+          # default, so opt in or the upload finds nothing.
+          include-hidden-files: true
           # The Next.js build output, minus the local build cache.
           path: |
             .next
