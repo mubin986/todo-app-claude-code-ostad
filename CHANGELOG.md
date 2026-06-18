@@ -1,3 +1,10 @@
+## [0.4.0](https://github.com/mubin986/claude-code-webinar/compare/v0.3.0...v0.4.0) (2026-06-18)
+
+
+### Features
+
+* **theme:** add light/dark mode toggle ([c81a7be](https://github.com/mubin986/claude-code-webinar/commit/c81a7be00d9d02618cf64641a385a64f89cea111))
+
 ## [0.3.0](https://github.com/mubin986/claude-code-webinar/compare/v0.2.2...v0.3.0) (2026-06-18)
 
 
