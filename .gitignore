@@ -14,6 +14,9 @@
 # collected tester feedback (local data)
 /data
 
+# mkdocs build output
+/site
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
