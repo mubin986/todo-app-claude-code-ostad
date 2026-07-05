@@ -1,0 +1,108 @@
+site_name: Todo App
+site_description: >-
+  A Next.js todo app with a built-in tester feedback tool — user guides,
+  architecture, and API reference.
+site_author: mubin986
+site_url: https://mubin986.github.io/claude-code-ostad/
+
+repo_name: mubin986/claude-code-ostad
+repo_url: https://github.com/mubin986/claude-code-ostad
+edit_uri: edit/main/docs/
+
+copyright: Copyright &copy; Todo App
+
+theme:
+  name: material
+  language: en
+  icon:
+    repo: fontawesome/brands/github
+    logo: material/checkbox-marked-circle-outline
+  palette:
+    # Light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to dark mode
+    # Dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.top
+    - navigation.tracking
+    - navigation.footer
+    - navigation.indexes
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+    - toc.follow
+
+plugins:
+  - search
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/mubin986/claude-code-ostad
+
+nav:
+  - Home: index.md
+  - Getting Started:
+      - Installation: getting-started/installation.md
+      - Quickstart: getting-started/quickstart.md
+  - User Guide:
+      - Managing Todos: user-guide/managing-todos.md
+      - Feedback Widget: user-guide/feedback-widget.md
+  - Developer:
+      - Architecture: developer/architecture.md
+      - Project Structure: developer/project-structure.md
+      - Conventions: developer/conventions.md
+      - CI & Releases: developer/ci-and-releases.md
+  - API Reference:
+      - Overview: api/overview.md
+      - Feedback API: api/feedback.md
+      - Greeting API: api/greeting.md
+  - Deployment: deployment.md
