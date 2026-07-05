@@ -1,0 +1,4 @@
+# Documentation toolchain — stack-independent, only needs Python.
+# Install with:  pip install -r docs/requirements.txt
+mkdocs-material>=9.5,<10
+pymdown-extensions>=10.7
