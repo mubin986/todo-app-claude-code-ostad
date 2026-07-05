@@ -1,4 +1,18 @@
-## [0.2.2](https://github.com/mubin986/claude-code-ostad/compare/v0.2.1...v0.2.2) (2026-06-18)
+## [0.4.0](https://github.com/mubin986/claude-code-webinar/compare/v0.3.0...v0.4.0) (2026-06-18)
+
+
+### Features
+
+* **theme:** add light/dark mode toggle ([c81a7be](https://github.com/mubin986/claude-code-webinar/commit/c81a7be00d9d02618cf64641a385a64f89cea111))
+
+## [0.3.0](https://github.com/mubin986/claude-code-webinar/compare/v0.2.2...v0.3.0) (2026-06-18)
+
+
+### Features
+
+* ci pipeline ([bbc5241](https://github.com/mubin986/claude-code-webinar/commit/bbc5241100273dbfb770ffbfd1566aa2bb8cb842))
+
+## [0.2.2](https://github.com/mubin986/claude-code-webinar/compare/v0.2.1...v0.2.2) (2026-06-18)
 
 
 ### Bug Fixes
