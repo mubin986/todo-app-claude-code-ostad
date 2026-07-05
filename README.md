@@ -3,7 +3,8 @@
 A simple **Next.js todo app** with a built-in **tester feedback tool**. Testers
 add, complete, and delete todos, and submit feedback through a floating widget
 that captures their message along with context (page, viewport, user agent). The
-developer reviews everything that comes in at `/feedback`.
+developer reviews everything that comes in at `/feedback`. A light/dark theme
+toggle (defaulting to the OS preference) is applied before first paint.
 
 ## Tech stack
 
@@ -38,17 +39,20 @@ npm run lint     # next lint
 
 ```
 app/
-  layout.tsx              # root layout; mounts the FeedbackWidget app-wide
-  page.tsx                # the todo app (client component, localStorage)
-  globals.css             # all styles
+  layout.tsx              # root layout; sets theme before paint, mounts FeedbackWidget
+  page.tsx                # the todo app (client component, localStorage); mounts ThemeToggle
+  globals.css             # all styles (incl. light/dark theme variables)
   components/
     FeedbackWidget.tsx    # floating "Feedback" button + form (client)
+    ThemeToggle.tsx       # light/dark theme toggle button (client)
   feedback/page.tsx       # review page for collected feedback (force-dynamic)
   api/feedback/route.ts   # GET (list) / POST (save) feedback; Node.js runtime
   api/greeting/route.ts   # GET a random greeting (JSON)
 lib/feedback.ts           # read/write helper for data/feedback.json
 data/feedback.json        # stored feedback — gitignored, created on first POST
-.github/workflows/        # CI, release-draft
+docs/                     # MkDocs documentation source (published to GitHub Pages)
+mkdocs.yml                # MkDocs site config
+.github/workflows/        # CI, release-draft, docs deploy
 commitlint.config.js      # commit-lint rules
 ```
 
@@ -68,6 +72,11 @@ commitlint.config.js      # commit-lint rules
   before deploying for remote testers.
 - There is **no auth** on `/feedback`; anyone who can reach the app can read
   submissions. Add a gate before exposing it publicly.
+
+## Documentation
+
+Full documentation lives in [`docs/`](docs/) as a MkDocs site, published to
+GitHub Pages at <https://mubin986.github.io/claude-code-ostad/>.
 
 ## Contributing
 
