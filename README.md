@@ -1,4 +1,4 @@
-# Second Class Todo
+# Todo App
 
 A simple **Next.js todo app** with a built-in **tester feedback tool**. Testers
 add, complete, and delete todos, and submit feedback through a floating widget
