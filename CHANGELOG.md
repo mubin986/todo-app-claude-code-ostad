@@ -1,18 +1,25 @@
-## [0.4.0](https://github.com/mubin986/claude-code-webinar/compare/v0.3.0...v0.4.0) (2026-06-18)
+## [0.5.0](https://github.com/mubin986/claude-code-ostad/compare/v0.4.0...v0.5.0) (2026-07-12)
 
 
 ### Features
 
-* **theme:** add light/dark mode toggle ([c81a7be](https://github.com/mubin986/claude-code-webinar/commit/c81a7be00d9d02618cf64641a385a64f89cea111))
+* **api:** add random greeting endpoint ([10f706c](https://github.com/mubin986/claude-code-ostad/commit/10f706c8c2c1a90c95da6788fc5416d7199a3464))
 
-## [0.3.0](https://github.com/mubin986/claude-code-webinar/compare/v0.2.2...v0.3.0) (2026-06-18)
+## [0.4.0](https://github.com/mubin986/claude-code-ostad/compare/v0.3.0...v0.4.0) (2026-06-18)
 
 
 ### Features
 
-* ci pipeline ([bbc5241](https://github.com/mubin986/claude-code-webinar/commit/bbc5241100273dbfb770ffbfd1566aa2bb8cb842))
+* **theme:** add light/dark mode toggle ([c81a7be](https://github.com/mubin986/claude-code-ostad/commit/c81a7be00d9d02618cf64641a385a64f89cea111))
 
-## [0.2.2](https://github.com/mubin986/claude-code-webinar/compare/v0.2.1...v0.2.2) (2026-06-18)
+## [0.3.0](https://github.com/mubin986/claude-code-ostad/compare/v0.2.2...v0.3.0) (2026-06-18)
+
+
+### Features
+
+* ci pipeline ([bbc5241](https://github.com/mubin986/claude-code-ostad/commit/bbc5241100273dbfb770ffbfd1566aa2bb8cb842))
+
+## [0.2.2](https://github.com/mubin986/claude-code-ostad/compare/v0.2.1...v0.2.2) (2026-06-18)
 
 
 ### Bug Fixes
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * example fix ([4cfe0de](https://github.com/mubin986/claude-code-ostad/commit/4cfe0deb46b07b8072df1c35d3a24d0c5a87372b))
-
-## [0.2.0](https://github.com/mubin986/claude-code-ostad/compare/a09abc28651d3bfbd4365ef354d75f32a05236e6...v0.2.0) (2026-06-18)
-
-
-### Features
-
-* scaffold Next.js todo app with tester feedback tool ([a09abc2](https://github.com/mubin986/claude-code-ostad/commit/a09abc28651d3bfbd4365ef354d75f32a05236e6))
 
