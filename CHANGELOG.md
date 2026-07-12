@@ -1,3 +1,10 @@
+## [0.7.0](https://github.com/mubin986/claude-code-ostad/compare/v0.6.0...v0.7.0) (2026-07-12)
+
+
+### Features
+
+* issue triage system ([eb7b3b0](https://github.com/mubin986/claude-code-ostad/commit/eb7b3b0838fb85aed7970e5216d1a8918429427f))
+
 ## [0.6.0](https://github.com/mubin986/claude-code-ostad/compare/v0.5.0...v0.6.0) (2026-07-12)
 
 
@@ -25,11 +32,4 @@
 ### Features
 
 * ci pipeline ([bbc5241](https://github.com/mubin986/claude-code-ostad/commit/bbc5241100273dbfb770ffbfd1566aa2bb8cb842))
-
-## [0.2.2](https://github.com/mubin986/claude-code-ostad/compare/v0.2.1...v0.2.2) (2026-06-18)
-
-
-### Bug Fixes
-
-* remove draft ([1aeaefe](https://github.com/mubin986/claude-code-ostad/commit/1aeaefe0ae91043a748e43083deca6e92a648750))
 
