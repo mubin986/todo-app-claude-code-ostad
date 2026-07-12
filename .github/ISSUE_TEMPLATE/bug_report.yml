@@ -1,0 +1,70 @@
+name: Bug report
+description: Something in the todo app or feedback tool is broken or behaving wrong.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the report! Fill in the fields below so we can reproduce and
+        fix it quickly. Issues are auto-triaged by Claude — clear repro steps get
+        a faster, more accurate response.
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: A clear description of the bug and what you expected instead.
+      placeholder: When I click "Delete" on a todo, the whole list disappears.
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: Exact steps so we can see the bug ourselves.
+      placeholder: |
+        1. Go to the home page
+        2. Add two todos
+        3. Complete the first one
+        4. Reload the page — todos are gone
+    validations:
+      required: true
+
+  - type: input
+    id: expected
+    attributes:
+      label: Expected behavior
+      placeholder: Todos should persist after a reload.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Where does it happen?
+      options:
+        - Todo app (home page)
+        - Feedback widget
+        - Feedback review page (/feedback)
+        - Not sure
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Browser + version, OS, and anything else relevant.
+      placeholder: Chrome 120 on macOS 14; local dev (npm run dev).
+    validations:
+      required: false
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: Screenshots / console errors
+      description: Drop images or paste any console/terminal output.
+    validations:
+      required: false

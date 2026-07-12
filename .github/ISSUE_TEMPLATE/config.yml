@@ -1,0 +1,3 @@
+# Force contributors to pick a structured template instead of a blank issue,
+# so the auto-triage workflow always has fields to classify.
+blank_issues_enabled: false
