@@ -1,0 +1,66 @@
+name: Claude Issue Triage
+
+# Automatically triages every newly opened (or reopened) issue with Claude Code:
+# reads the issue body, classifies it, applies labels, sets a priority, and
+# posts a short triage comment — asking for missing info when the report is thin.
+on:
+  issues:
+    types: [opened, reopened]
+
+# One triage run per issue; cancel an in-flight run if the issue is edited/reopened.
+concurrency:
+  group: claude-triage-${{ github.event.issue.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read # read the checked-out code (for duplicate/context lookups)
+  issues: write # apply labels and post the triage comment
+  id-token: write # OIDC for the Claude Code action
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    # Skip issues opened by bots (e.g. other automation) to avoid loops.
+    if: github.actor != 'github-actions[bot]'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Triage issue
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          # The action injects issue context automatically; the prompt tells
+          # Claude how to classify and what to publish.
+          prompt: |
+            You are triaging issue #${{ github.event.issue.number }}
+            in the repository ${{ github.repository }}.
+
+            Read this project's CLAUDE.md for context on the app (a Next.js todo
+            app with a tester-feedback tool), then read the issue title and body.
+
+            1. Classify the issue into exactly one category and apply the matching
+               label: `bug`, `feature`, `question`, or `duplicate`. Before choosing
+               `duplicate`, search existing issues (`gh issue list`,
+               `gh search issues`) and, if you find the original, link it.
+
+            2. Assign one priority label based on impact and scope:
+               `priority: high`, `priority: medium`, or `priority: low`.
+
+            3. If the report is missing information needed to act on it (repro
+               steps for a bug, a clear ask for a feature), add the
+               `needs-info` label and list the specific questions in your comment.
+
+            4. Only apply labels that already exist in the repo — list them first
+               with `gh label list`. Do not invent new labels; skip any that are
+               absent.
+
+            Apply labels with `gh issue edit ${{ github.event.issue.number }}
+            --add-label`, then post ONE concise triage comment with
+            `gh issue comment ${{ github.event.issue.number }}` stating the
+            category, priority, and (if any) the info you need. Keep it friendly
+            and brief.
+          # Restrict CI tools to read-only inspection plus labeling/commenting on
+          # the issue. No writes to the repo or filesystem.
+          claude_args: |
+            --model claude-sonnet-5 --allowedTools "Read,Grep,Glob,Bash(gh label list:*),Bash(gh issue view:*),Bash(gh issue list:*),Bash(gh search issues:*),Bash(gh issue edit:*),Bash(gh issue comment:*)"
