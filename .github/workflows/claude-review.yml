@@ -1,0 +1,61 @@
+name: Claude PR Review
+
+# Automatically reviews every pull request with Claude Code and posts the
+# feedback as a PR comment. Runs when a PR is opened or gets new commits.
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+# One review per PR ref; cancel an in-flight review when new commits arrive.
+concurrency:
+  group: claude-review-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read # read the checked-out code
+  pull-requests: write # post the review as a PR comment
+  issues: read
+  id-token: write # OIDC for the Claude Code action
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    # Skip drafts and PRs from bots (e.g. the release-draft commit bot).
+    if: >-
+      github.event.pull_request.draft == false &&
+      github.actor != 'github-actions[bot]'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # Full history so Claude can diff the PR branch against its base.
+          fetch-depth: 0
+
+      - name: Review PR
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          # The action injects PR context automatically; the prompt tells
+          # Claude what to check and how to publish the result.
+          prompt: |
+            You are reviewing pull request #${{ github.event.pull_request.number }}
+            in the repository ${{ github.repository }}.
+
+            Read this project's CLAUDE.md for its conventions, tech-stack
+            constraints (Node 18 / Next 14 pin), and Conventional Commit rules,
+            then review the PR diff. Focus on:
+
+            - Correctness bugs, broken edge cases, and type-safety holes
+              (TypeScript strict mode is on; `npm run build` must stay green).
+            - Security issues, especially in the feedback API route and file I/O.
+            - Violations of the project's conventions (runtime pinning, the
+              "use client" directive, Conventional Commit messages).
+            - High-value simplifications or reuse — skip pure style nits.
+
+            Post a single, concise review comment with `gh pr comment`. Group
+            findings by severity, reference specific files and line numbers, and
+            do not comment if the diff is clean — say so briefly instead.
+          # Restrict the tools Claude may run in CI to read-only inspection plus
+          # posting the review comment. No writes to the repo or filesystem.
+          claude_args: |
+            --allowedTools "Read,Grep,Glob,Bash(gh pr view:*),Bash(gh pr diff:*),Bash(gh pr comment:*)"
