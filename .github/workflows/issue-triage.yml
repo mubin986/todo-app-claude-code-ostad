@@ -39,6 +39,21 @@ jobs:
             Read this project's CLAUDE.md for context on the app (a Next.js todo
             app with a tester-feedback tool), then read the issue title and body.
 
+            0. First decide whether this is a genuine report at all. Some issues
+               are tests, placeholders, spam, or content-free (e.g. a title/body
+               that just asserts "this is a bug" or "sample issue" with no
+               reproducible detail, gibberish, or an empty template). Do NOT
+               classify these as `bug`/`feature`/`question`. Instead:
+               - Apply `invalid` (only if that label already exists in the repo).
+               - Post ONE brief, friendly comment noting it looks like a test /
+                 placeholder rather than an actionable report, and inviting the
+                 author to reopen with real details (what happened, expected vs.
+                 actual, steps to reproduce) if it was meant to be genuine.
+               - Then STOP — skip steps 1-3. A vague-but-sincere report is not the
+                 same as a non-report: if in doubt that the author intended a real
+                 issue, treat it as genuine and continue below (using `needs-info`
+                 in step 3 to request the missing detail).
+
             1. Classify the issue into exactly one category and apply the matching
                label: `bug`, `feature`, `question`, or `duplicate`. Before choosing
                `duplicate`, search existing issues (`gh issue list`,
