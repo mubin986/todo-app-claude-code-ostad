@@ -1,3 +1,10 @@
+## [0.6.0](https://github.com/mubin986/claude-code-ostad/compare/v0.5.0...v0.6.0) (2026-07-12)
+
+
+### Features
+
+* claude review ([82d146a](https://github.com/mubin986/claude-code-ostad/commit/82d146a00a4e6a0e36669de39ca52725f5cdcad3))
+
 ## [0.5.0](https://github.com/mubin986/claude-code-ostad/compare/v0.4.0...v0.5.0) (2026-07-12)
 
 
@@ -25,11 +32,4 @@
 ### Bug Fixes
 
 * remove draft ([1aeaefe](https://github.com/mubin986/claude-code-ostad/commit/1aeaefe0ae91043a748e43083deca6e92a648750))
-
-## [0.2.1](https://github.com/mubin986/claude-code-ostad/compare/v0.2.0...v0.2.1) (2026-06-18)
-
-
-### Bug Fixes
-
-* example fix ([4cfe0de](https://github.com/mubin986/claude-code-ostad/commit/4cfe0deb46b07b8072df1c35d3a24d0c5a87372b))
 
