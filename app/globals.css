@@ -110,10 +110,15 @@ h1 {
   background: var(--accent);
   color: #fff;
   cursor: pointer;
+  transition: background 0.15s ease, transform 0.1s ease;
 }
 
 .add-form button:hover {
   background: var(--accent-hover);
+}
+
+.add-form button:active {
+  transform: scale(0.95);
 }
 
 .todo-list {
@@ -131,6 +136,26 @@ h1 {
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 8px;
+  transition: transform 0.15s ease, border-color 0.15s ease,
+    box-shadow 0.15s ease;
+  animation: todo-in 0.25s ease both;
+}
+
+.todo-item:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+}
+
+@keyframes todo-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .todo-item input[type="checkbox"] {
@@ -146,6 +171,10 @@ h1 {
   word-break: break-word;
 }
 
+.todo-item .label {
+  transition: color 0.2s ease;
+}
+
 .todo-item.done .label {
   text-decoration: line-through;
   color: var(--muted);
@@ -159,10 +188,12 @@ h1 {
   line-height: 1;
   cursor: pointer;
   padding: 0.25rem;
+  transition: color 0.15s ease, transform 0.15s ease;
 }
 
 .todo-item .delete:hover {
   color: var(--danger);
+  transform: scale(1.2) rotate(90deg);
 }
 
 .empty {
@@ -207,10 +238,16 @@ h1 {
   color: #fff;
   cursor: pointer;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+  transition: background 0.15s ease, transform 0.15s ease;
 }
 
 .fw-launch:hover {
   background: var(--accent-hover);
+  transform: translateY(-2px);
+}
+
+.fw-launch:active {
+  transform: scale(0.94);
 }
 
 .fw-panel {
@@ -224,6 +261,19 @@ h1 {
   border: 1px solid var(--border);
   border-radius: 12px;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+  transform-origin: bottom right;
+  animation: fw-in 0.2s ease both;
+}
+
+@keyframes fw-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .fw-form {
@@ -251,6 +301,12 @@ h1 {
   background: transparent;
   color: var(--text);
   cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease,
+    transform 0.1s ease;
+}
+
+.fw-chip:active {
+  transform: scale(0.94);
 }
 
 .fw-chip.active {
@@ -272,6 +328,11 @@ h1 {
   color: var(--border);
   cursor: pointer;
   padding: 0;
+  transition: color 0.15s ease, transform 0.15s ease;
+}
+
+.fw-star:hover {
+  transform: scale(1.2);
 }
 
 .fw-star.on {
@@ -406,4 +467,16 @@ h1 {
   gap: 0.75rem;
   color: var(--muted);
   font-size: 0.8rem;
+}
+
+/* ---------- Motion preferences ---------- */
+/* Respect users who ask for reduced motion — kill animations/transitions. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }
