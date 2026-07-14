@@ -14,7 +14,7 @@ import { logToolCall, type ToolResult } from "@/lib/tools/types";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-const MODEL = "claude-haiku-4-5";
+const MODEL = "claude-opus-4-8";
 
 // Debug dump of the last request/response — overwritten on every request.
 const DEBUG_DIR = path.join(process.cwd(), "chat-logs");
@@ -127,6 +127,14 @@ const SYSTEM_PROMPT = [
   "many. Tools that modify a specific todo need its id; look it up with a read tool",
   "first. Deleting is permanent and cannot be undone, so only delete when clearly",
   "asked, and confirm first if the request is ambiguous.",
+  "",
+  "CRITICAL: Never tell the user that an action (add, complete, edit, delete, or",
+  "clear) succeeded unless a tool call in THIS turn returned a successful result.",
+  "Do not report success from memory or assumption. If you don't have the tool",
+  "loaded, call search_tools to load it, then call the tool — a modifying tool",
+  "needs the target todo's id, so look it up with a read tool first. When the user",
+  "confirms a pending action (e.g. replies 'yes'), you must actually carry it out",
+  "with the tool before saying it's done; a confirmation is not itself the action.",
   "Be concise and conversational. Respond with your answer directly, no preamble.",
 ].join("\n");
 
