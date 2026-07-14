@@ -11,8 +11,21 @@
 # misc
 .DS_Store
 
+# Playwright MCP scratch output (console logs, page snapshots)
+/.playwright-mcp
+
+# local env files (API keys, etc.)
+.env
+.env*.local
+
 # collected tester feedback (local data)
 /data
+
+# chat request/response debug dumps
+/chat-logs
+
+# append-only AI request/response log history
+/ai-logs
 
 # mkdocs build output
 /site

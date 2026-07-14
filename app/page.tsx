@@ -1,60 +1,99 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import ThemeToggle from "./components/ThemeToggle";
 
 type Todo = {
   id: string;
   text: string;
   done: boolean;
+  createdAt: string;
 };
-
-const STORAGE_KEY = "todos";
 
 export default function Home() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [input, setInput] = useState("");
   const [loaded, setLoaded] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  // Load todos from localStorage on first render.
+  // Load todos from the API on first render.
   useEffect(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) setTodos(JSON.parse(saved));
-    } catch {
-      // ignore malformed storage
-    }
-    setLoaded(true);
+    (async () => {
+      try {
+        const res = await fetch("/api/todos");
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        setTodos(await res.json());
+      } catch {
+        setError("Could not load todos.");
+      } finally {
+        setLoaded(true);
+      }
+    })();
   }, []);
 
-  // Persist todos whenever they change (after the initial load).
-  useEffect(() => {
-    if (loaded) localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
-  }, [todos, loaded]);
-
-  function addTodo(e: React.FormEvent) {
+  async function addTodo(e: React.FormEvent) {
     e.preventDefault();
     const text = input.trim();
     if (!text) return;
-    setTodos((prev) => [
-      ...prev,
-      { id: crypto.randomUUID(), text, done: false },
-    ]);
     setInput("");
+    try {
+      const res = await fetch("/api/todos", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text }),
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const created: Todo = await res.json();
+      setTodos((prev) => [...prev, created]);
+    } catch {
+      setError("Could not add todo.");
+    }
   }
 
-  function toggleTodo(id: string) {
-    setTodos((prev) =>
-      prev.map((t) => (t.id === id ? { ...t, done: !t.done } : t))
-    );
+  async function toggleTodo(id: string) {
+    const todo = todos.find((t) => t.id === id);
+    if (!todo) return;
+    const done = !todo.done;
+    // Optimistic update, reverted on failure.
+    setTodos((prev) => prev.map((t) => (t.id === id ? { ...t, done } : t)));
+    try {
+      const res = await fetch(`/api/todos/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ done }),
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    } catch {
+      setTodos((prev) =>
+        prev.map((t) => (t.id === id ? { ...t, done: !done } : t))
+      );
+      setError("Could not update todo.");
+    }
   }
 
-  function deleteTodo(id: string) {
+  async function deleteTodo(id: string) {
+    const prevTodos = todos;
     setTodos((prev) => prev.filter((t) => t.id !== id));
+    try {
+      const res = await fetch(`/api/todos/${id}`, { method: "DELETE" });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    } catch {
+      setTodos(prevTodos);
+      setError("Could not delete todo.");
+    }
   }
 
-  function clearCompleted() {
+  async function clearCompleted() {
+    const prevTodos = todos;
     setTodos((prev) => prev.filter((t) => !t.done));
+    try {
+      const res = await fetch("/api/todos", { method: "DELETE" });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    } catch {
+      setTodos(prevTodos);
+      setError("Could not clear completed todos.");
+    }
   }
 
   const remaining = todos.filter((t) => !t.done).length;
@@ -63,7 +102,12 @@ export default function Home() {
     <main className="container">
       <header className="app-header">
         <h1>📝 Todo</h1>
-        <ThemeToggle />
+        <div className="chat-header-actions">
+          <Link href="/chat" className="chat-back">
+            💬 Brainstorm
+          </Link>
+          <ThemeToggle />
+        </div>
       </header>
 
       <form className="add-form" onSubmit={addTodo}>
@@ -77,7 +121,11 @@ export default function Home() {
         <button type="submit">Add</button>
       </form>
 
-      {todos.length === 0 ? (
+      {error && <p className="error">{error}</p>}
+
+      {!loaded ? (
+        <p className="empty">Loading…</p>
+      ) : todos.length === 0 ? (
         <p className="empty">Nothing here yet. Add your first todo above.</p>
       ) : (
         <ul className="todo-list">
@@ -107,7 +155,7 @@ export default function Home() {
         </ul>
       )}
 
-      {todos.length > 0 && (
+      {loaded && todos.length > 0 && (
         <div className="footer">
           <span>
             {remaining} item{remaining !== 1 ? "s" : ""} left
