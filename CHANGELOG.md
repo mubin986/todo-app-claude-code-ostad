@@ -1,3 +1,10 @@
+## [0.9.0](https://github.com/mubin986/todo-app-claude-code-ostad/compare/v0.8.1...v0.9.0) (2026-07-14)
+
+
+### Features
+
+* add AI chat assistant with server-backed todos and tool registry ([ffdbaa8](https://github.com/mubin986/todo-app-claude-code-ostad/commit/ffdbaa8c37660fc4e4367680ec60d276f724acec))
+
 ## [0.8.1](https://github.com/mubin986/todo-app-claude-code-ostad/compare/v0.8.0...v0.8.1) (2026-07-12)
 
 
@@ -25,11 +32,4 @@
 ### Features
 
 * claude review ([82d146a](https://github.com/mubin986/todo-app-claude-code-ostad/commit/82d146a00a4e6a0e36669de39ca52725f5cdcad3))
-
-## [0.5.0](https://github.com/mubin986/todo-app-claude-code-ostad/compare/v0.4.0...v0.5.0) (2026-07-12)
-
-
-### Features
-
-* **api:** add random greeting endpoint ([10f706c](https://github.com/mubin986/todo-app-claude-code-ostad/commit/10f706c8c2c1a90c95da6788fc5416d7199a3464))
 
